@@ -138,6 +138,15 @@ Benchmark.bm(100) do |bm|
       json.array! datas, :a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :l, :m, :n, :o, :p, :q, :r, :s, :t, :u, :v, :w, :x, :y, :z
     end
   }
+
+  # Note that this case cases the json to be {"datas" => [ array_data ]} instead of [ array_data ] as the pervious two do
+  bm.report("json.datas datas.each do |data|") {
+    Jbuilder.encode do |json|
+      json.datas datas.each do |data|
+        json.extract! data, :a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :l, :m, :n, :o, :p, :q, :r, :s, :t, :u, :v, :w, :x, :y, :z
+      end
+    end
+  }
 end
 
 
